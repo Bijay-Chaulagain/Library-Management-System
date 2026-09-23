@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "target": "ES6",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "strict": false,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "allowJs": true,
+    "noEmit": true,
+    "skipLibCheck": true,
+    "ignoreDeprecations": "5.0"
+  },
+  "include": [
+    "src/services",
+    "src/types"
+  ],
+  "exclude": [
+    "node_modules",
+    "src/api"
+  ]
+}

@@ -1,0 +1,77 @@
+services:
+
+  db:
+    image: postgres:16-alpine
+    container_name: lms_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${DATABASE_NAME}
+      POSTGRES_USER: ${DATABASE_USER}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: lms_backend
+    restart: unless-stopped
+    depends_on:
+      - db
+    environment:
+      SECRET_KEY: ${SECRET_KEY}
+      DEBUG: ${DEBUG}
+      DATABASE_NAME: ${DATABASE_NAME}
+      DATABASE_USER: ${DATABASE_USER}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
+      DATABASE_HOST: ${DATABASE_HOST}
+      DATABASE_PORT: ${DATABASE_PORT}
+    ports:
+      - "8000:8000"
+
+
+  frontend1:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: lms_frontend_1
+    restart: unless-stopped
+
+
+  frontend2:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: lms_frontend_2
+    restart: unless-stopped
+
+
+  frontend3:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: lms_frontend_3
+    restart: unless-stopped
+
+
+  nginx:
+    image: nginx:alpine
+    container_name: lms_nginx
+    restart: unless-stopped
+    depends_on:
+      - frontend1
+      - frontend2
+      - frontend3
+      - backend
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+
+
+volumes:
+  postgres_data:
