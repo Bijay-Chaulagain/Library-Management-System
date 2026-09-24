@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { memberService } from "../services/memberService";
 import Layout from "../components/Layout";
+import { StudentIcon, ListIcon, LoaderIcon } from "../components/Icons";
 
 const emptyForm = {
   membership_no: "", first_name: "", last_name: "",
@@ -72,7 +73,7 @@ function Members() {
       {/* ── Form card ── */}
       <div className="card">
         <div className="card-title">
-          <span className="card-icon">🎓</span>
+          <div className="state-icon"><StudentIcon width={32} height={32} /></div>
           Add Students
         </div>
 
@@ -123,15 +124,15 @@ function Members() {
       {/* ── Table card ── */}
       <div className="card">
         <div className="card-title">
-          <span className="card-icon">📋</span>
+          <span className="card-icon"><ListIcon width={16} height={16} /></span>
           Student Lists
         </div>
 
         {isLoading ? (
-          <div className="state-box"><div className="state-icon">⏳</div><p>Loading students…</p></div>
+          <div className="state-box"><div className="state-icon"><LoaderIcon width={32} height={32} /></div><p>Loading students…</p></div>
         ) : members.length === 0 ? (
           <div className="state-box">
-            <div className="state-icon">🎓</div>
+            <span className="card-icon"><StudentIcon width={16} height={16} /></span>
             <p>No students yet. Add one above.</p>
           </div>
         ) : (

@@ -1,5 +1,6 @@
 /* src/styles/theme.css */
 
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 /* ── Design tokens ───────────────────────────────────────────────── */
 :root {
   --navy:        #1a3a5c;   /* sidebar background */
@@ -29,7 +30,7 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
-  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
   background: var(--bg);
   color: var(--text);
   font-size: 14px;
@@ -90,6 +91,19 @@ body {
   flex: 1;
   padding: 12px 0;
   list-style: none;
+}
+
+.nav-icon svg,
+.logo-icon svg {
+  width: 18px;
+  height: 18px;
+  display: block;
+}
+
+.logo-icon svg {
+  width: 28px;
+  height: 28px;
+  margin: 0 auto;
 }
 
 .sidebar-nav li a,
@@ -209,14 +223,20 @@ textarea.form-control { resize: vertical; min-height: 80px; }
   align-items: center;
   gap: 6px;
   padding: 9px 20px;
-  border-radius: var(--radius);
+  border-radius: 8px;
   font-size: 13px;
   font-weight: 600;
+  font-family: 'Inter', sans-serif;
+  letter-spacing: 0.1px;
   cursor: pointer;
   border: none;
-  transition: background 0.15s, transform 0.1s;
+  transition: background 0.15s, transform 0.1s, box-shadow 0.15s;
   white-space: nowrap;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.06);
 }
+
+.btn:hover { transform: translateY(-1px); box-shadow: 0 4px 10px rgba(0,0,0,0.12); }
+.btn:active { transform: translateY(0) scale(0.98); box-shadow: 0 1px 2px rgba(0,0,0,0.06); }
 
 .btn:active { transform: scale(0.98); }
 
@@ -235,7 +255,7 @@ textarea.form-control { resize: vertical; min-height: 80px; }
 }
 .btn-outline:hover { background: var(--blue-light); }
 
-.btn-sm { padding: 5px 12px; font-size: 12px; }
+.btn-sm { padding: 6px 14px; font-size: 12px; border-radius: 6px; }
 
 .btn-group { display: flex; gap: 8px; flex-wrap: wrap; }
 

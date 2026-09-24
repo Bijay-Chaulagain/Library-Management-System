@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
 import Login       from "../pages/Login";
+import SignUp      from "../pages/SignUp";
 import Dashboard   from "../pages/Dashboard";
 import Users       from "../pages/Users";
 import Books       from "../pages/Books";
@@ -26,6 +27,7 @@ function AppRoutes() {
       <Routes>
         {/* Public */}
         <Route path="/login" element={<Login />} />
+	      <Route path="/signup" element={<SignUp />} />
         <Route path="/"      element={<Navigate to="/dashboard" replace />} />
 
         {/* Redirect hub — sends each role to their first page */}

@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { categoryService } from "../services/categoryService";
 import Layout from "../components/Layout";
+import { AuthorIcon, ListIcon, LoaderIcon } from "../components/Icons";
 
 function Categories() {
   const qc = useQueryClient();
@@ -63,7 +64,7 @@ function Categories() {
       {/* ── Form card ── */}
       <div className="card">
         <div className="card-title">
-          <span className="card-icon">✍️</span>
+          <span className="card-icon"><AuthorIcon width={16} height={16} /></span>
           Author Info
         </div>
 
@@ -126,15 +127,15 @@ function Categories() {
       {/* ── Table card ── */}
       <div className="card">
         <div className="card-title">
-          <span className="card-icon">📋</span>
+          <span className="card-icon"><ListIcon width={16} height={16} /></span>
           Author Details
         </div>
 
         {isLoading ? (
-          <div className="state-box"><div className="state-icon">⏳</div><p>Loading…</p></div>
+          <div className="state-box"><div className="state-icon"><LoaderIcon width={32} height={32} /></div><p>Loading…</p></div>
         ) : categories.length === 0 ? (
           <div className="state-box">
-            <div className="state-icon">✍️</div>
+            <div className="state-icon"><AuthorIcon width={32} height={32} /></div>
             <p>No authors yet. Add one above.</p>
           </div>
         ) : (

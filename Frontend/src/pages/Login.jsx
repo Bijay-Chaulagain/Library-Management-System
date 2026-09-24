@@ -3,6 +3,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import { BookIcon } from "../components/Icons";
+
 
 function Login() {
   const [username, setUsername] = useState("");
@@ -35,7 +37,7 @@ function Login() {
 
         {/* ── Left — login form ── */}
         <div className="login-left">
-          <div className="login-logo">📖</div>
+          <div className="login-logo"><BookIcon width={40} height={40} /></div>
           <h2>HSMSS Library Management System</h2>
           <p className="login-sub">Please enter your credentials</p>
 
@@ -73,10 +75,15 @@ function Login() {
 
         {/* ── Right — register CTA ── */}
         <div className="login-right">
-          <div className="right-icon">📖</div>
+          <div className="login-logo"><BookIcon width={40} height={40} /></div>
           <h3>HSMSS<br />Library</h3>
           <p className="right-sub">New to our platform?<br />Register Now</p>
-          <button className="btn btn-outline">Register</button>
+          <button
+            className="btn btn-outline"
+            onClick={() => navigate("/signup")}
+          >
+            Register
+          </button>
         </div>
 
       </div>

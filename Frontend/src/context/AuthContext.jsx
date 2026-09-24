@@ -19,13 +19,22 @@ export const AuthProvider = ({ children }) => {
     setUser(response.user);
   };
 
+  const register = async (username, email, password) => {
+    const response = await authService.register(username, email, password);
+
+    localStorage.setItem("access_token", response.tokens.access);
+    localStorage.setItem("refresh_token", response.tokens.refresh);
+    localStorage.setItem("user", JSON.stringify(response.user));
+    setUser(response.user);
+};
+
   const logout = () => {
     authService.logout();
     setUser(null);
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, logout, isAuthenticated: !!user }}>
+    <AuthContext.Provider value={{ user, login, register, logout, isAuthenticated: !!user }}>
       {children}
     </AuthContext.Provider>
   );

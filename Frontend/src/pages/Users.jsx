@@ -3,6 +3,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { userService } from "../services/userService";
 import Layout from "../components/Layout";
+import { UserIcon, LoaderIcon, WarningIcon, CheckIcon, XIcon } from "../components/Icons";
 
 function Users() {
   const { data: users = [], isLoading, error } = useQuery({
@@ -17,7 +18,7 @@ function Users() {
 
       <div className="card">
         <div className="card-title">
-          <span className="card-icon">👤</span>
+          <span className="card-icon"><UserIcon width={16} height={16} /></span>
           User List
           <span style={{ marginLeft: "auto", fontSize: 13, fontWeight: 400, color: "var(--text-muted)" }}>
             {users.length} users
@@ -25,15 +26,15 @@ function Users() {
         </div>
 
         {isLoading ? (
-          <div className="state-box"><div className="state-icon">⏳</div><p>Loading users…</p></div>
+          <div className="state-box"><div className="state-icon"><LoaderIcon width={32} height={32} /></div><p>Loading users…</p></div>
         ) : error ? (
           <div className="state-box">
-            <div className="state-icon">⚠️</div>
+            <div className="state-icon"><WarningIcon width={32} height={32} /></div>
             <p>Failed to load users.</p>
           </div>
         ) : users.length === 0 ? (
           <div className="state-box">
-            <div className="state-icon">👤</div>
+            <div className="state-icon"><UserIcon width={32} height={32} /></div>
             <p>No users found.</p>
           </div>
         ) : (
@@ -56,7 +57,7 @@ function Users() {
                     <td>
                       <span className={`badge badge-${user.role}`}>{user.role}</span>
                     </td>
-                    <td>{user.is_active ? "✅" : "❌"}</td>
+                    <td>{user.is_active ? <CheckIcon width={16} height={16} style={{ color: "var(--success)" }} /> : <XIcon width={16} height={16} style={{ color: "var(--danger)" }} />}</td>
                     <td style={{ color: "var(--text-muted)", fontSize: 12 }}>
                       {new Date(user.created_at).toLocaleDateString()}
                     </td>

@@ -4,7 +4,7 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-
+import { LoaderIcon } from "../components/Icons";
 const firstPage = {
   admin:     "/categories",
   librarian: "/books",
@@ -23,7 +23,7 @@ function Dashboard() {
 
   return (
     <div className="state-box" style={{ marginTop: 80 }}>
-      <div className="state-icon">⏳</div>
+      <div className="state-icon"><LoaderIcon width={32} height={32} /></div>
       <p>Loading your dashboard…</p>
     </div>
   );

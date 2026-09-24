@@ -12,6 +12,19 @@ export const authService = {
     return response.data;
   },
 
+  register: async (
+    username: string,
+    email: string,
+    password: string
+  ): Promise<LoginResponse> => {
+    const response = await axiosInstance.post<LoginResponse>('/account/register/', {
+      username,
+      email,
+      password,
+    });
+    return response.data;
+  },
+
   getCurrentUser: async (): Promise<User> => {
     const response = await axiosInstance.get<User>('/account/me/');
     return response.data;

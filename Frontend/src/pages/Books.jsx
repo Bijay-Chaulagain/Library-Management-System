@@ -5,6 +5,7 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { bookService } from "../services/bookService";
 import { categoryService } from "../services/categoryService";
 import Layout from "../components/Layout";
+import { BookIcon, ListIcon, LoaderIcon } from "../components/Icons";
 
 const emptyForm = {
   title: "", ISBN: "", author: "", publisher: "",
@@ -80,7 +81,7 @@ function Books() {
       {/* ── Form card ── */}
       <div className="card">
         <div className="card-title">
-          <span className="card-icon">📚</span>
+          <span className="card-icon"><BookIcon width={16} height={16} /></span>
           Book Details
         </div>
 
@@ -144,15 +145,15 @@ function Books() {
       {/* ── Table card ── */}
       <div className="card">
         <div className="card-title">
-          <span className="card-icon">📋</span>
+          <span className="card-icon"><ListIcon width={16} height={16} /></span>
           Book Lists
         </div>
 
         {isLoading ? (
-          <div className="state-box"><div className="state-icon">⏳</div><p>Loading books…</p></div>
+          <div className="state-box"><div className="state-icon"><LoaderIcon width={32} height={32} /></div><p>Loading books…</p></div>
         ) : books.length === 0 ? (
           <div className="state-box">
-            <div className="state-icon">📚</div>
+            <div className="state-icon"><BookIcon width={32} height={32} /></div>
             <p>No books yet. Add one above.</p>
           </div>
         ) : (

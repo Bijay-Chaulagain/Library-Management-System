@@ -3,6 +3,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { circulationService } from "../services/circulationService";
 import Layout from "../components/Layout";
+import { TransactionIcon, WarningIcon, LoaderIcon } from "../components/Icons";
 
 function Circulation() {
   const { data: transactions = [], isLoading, error } = useQuery({
@@ -17,20 +18,20 @@ function Circulation() {
 
       <div className="card">
         <div className="card-title">
-          <span className="card-icon">🔄</span>
+          <span className="card-icon"><TransactionIcon width={16} height={16} /></span>
           Transaction
         </div>
 
         {isLoading ? (
-          <div className="state-box"><div className="state-icon">⏳</div><p>Loading transactions…</p></div>
+          <div className="state-box"><div className="state-icon"><LoaderIcon width={32} height={32} /></div><p>Loading transactions…</p></div>
         ) : error ? (
           <div className="state-box">
-            <div className="state-icon">⚠️</div>
+            <div className="state-icon"><WarningIcon width={32} height={32} /></div>
             <p>Failed to load transactions. Make sure Django is running.</p>
           </div>
         ) : transactions.length === 0 ? (
           <div className="state-box">
-            <div className="state-icon">🔄</div>
+            <div className="state-icon"><TransactionIcon width={32} height={32} /></div>
             <p>No transactions yet. Issue a book to get started.</p>
           </div>
         ) : (

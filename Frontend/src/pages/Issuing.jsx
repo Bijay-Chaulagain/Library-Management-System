@@ -6,6 +6,8 @@ import { circulationService } from "../services/circulationService";
 import { bookService } from "../services/bookService";
 import { memberService } from "../services/memberService";
 import Layout from "../components/Layout";
+import { ListIcon, TransactionIcon, LoaderIcon, StudentIcon, CheckIcon, XIcon } from "../components/Icons";
+
 
 const today = () => new Date().toISOString().split("T")[0];
 const twoWeeks = () => {
@@ -49,7 +51,7 @@ function Issuing() {
     (tx) => tx.status === "borrowed" || tx.status === "overdue"
   );
 
-  const selectedBook   = books.find((b) => b.book_id === form.book);
+  const selectedBook = books.find((b) => b.book_id === form.book);
   const selectedMember = members.find((m) => m.member_id === form.member);
 
   // ── Borrow mutation ──
@@ -113,7 +115,7 @@ function Issuing() {
       {/* ── Issue Book form card ── */}
       <div className="card" style={{ maxWidth: 680 }}>
         <div className="card-title">
-          <span className="card-icon">📋</span>
+          <span className="card-icon"><ListIcon width={16} height={16} /></span>
           Issue Book
         </div>
 
@@ -195,16 +197,22 @@ function Issuing() {
               marginBottom: 14,
               fontSize: 13,
             }}>
-              {selectedBook.available_quantity > 0
-                ? `✅ ${selectedBook.available_quantity} copies available`
-                : "❌ No copies available — choose another book"}
+              {selectedBook.available_quantity > 0 ? (
+                <span style={{ display: "flex", alignItems: "center", gap: 6 }}>
+                  <CheckIcon width={14} height={14} /> {selectedBook.available_quantity} copies available
+                </span>
+              ) : (
+                <span style={{ display: "flex", alignItems: "center", gap: 6 }}>
+                  <XIcon width={14} height={14} /> No copies available — choose another book
+                </span>
+              )}
             </div>
           )}
 
-          {error   && <p className="error-text" style={{ marginBottom: 12 }}>{error}</p>}
+          {error && <p className="error-text" style={{ marginBottom: 12 }}>{error}</p>}
           {success && (
-            <p style={{ color: "var(--success)", fontWeight: 600, marginBottom: 12 }}>
-              ✅ {success}
+            <p style={{ color: "var(--success)", fontWeight: 600, marginBottom: 12, display: "flex", alignItems: "center", gap: 6 }}>
+              <CheckIcon width={14} height={14} /> {success}
             </p>
           )}
 
@@ -224,7 +232,7 @@ function Issuing() {
       {/* ── Active Borrows — Return + Overdue management ── */}
       <div className="card">
         <div className="card-title">
-          <span className="card-icon">🔄</span>
+          <span className="card-icon"><TransactionIcon width={16} height={16} /></span>
           Currently Borrowed Books
           <span style={{
             marginLeft: "auto",
@@ -238,12 +246,12 @@ function Issuing() {
 
         {txLoading ? (
           <div className="state-box">
-            <div className="state-icon">⏳</div>
+            <div className="state-icon"><LoaderIcon width={32} height={32} /></div>
             <p>Loading…</p>
           </div>
         ) : activeTransactions.length === 0 ? (
           <div className="state-box">
-            <div className="state-icon">✅</div>
+            <div className="state-icon"><CheckIcon width={32} height={32} /></div>
             <p>No books currently borrowed.</p>
           </div>
         ) : (
@@ -265,9 +273,9 @@ function Issuing() {
                   const overdue = isOverdue(tx.due_date) && tx.status !== "returned";
                   const daysOverdue = overdue
                     ? Math.floor(
-                        (new Date(today()) - new Date(tx.due_date)) /
-                          (1000 * 60 * 60 * 24)
-                      )
+                      (new Date(today()) - new Date(tx.due_date)) /
+                      (1000 * 60 * 60 * 24)
+                    )
                     : 0;
 
                   return (
@@ -316,7 +324,7 @@ function Issuing() {
       {selectedMember && (
         <div className="card" style={{ maxWidth: 680 }}>
           <div className="card-title">
-            <span className="card-icon">🎓</span>
+            <span className="card-icon"><StudentIcon width={16} height={16} /></span>
             Student Info
           </div>
           <div className="form-grid">
